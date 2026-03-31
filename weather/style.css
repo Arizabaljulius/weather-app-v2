@@ -7,8 +7,11 @@
     --input-text: #333333;
     --accent-color: #ff9f43;
     --accent-hover: #ee5253;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+--shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --particle-color: rgba(255, 255, 255, 0.3);
 }
+
+
 
 [data-theme="dark"] {
     --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -16,7 +19,8 @@
     --card-bg: rgba(255, 255, 255, 0.05);
     --input-bg: #2c3e50;
     --input-text: #ffffff;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+--shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --particle-color: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -35,6 +39,56 @@ body {
     align-items: center;
     color: var(--text-color);
     transition: background 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: 
+        radial-gradient(var(--particle-color) 1px, transparent 1px),
+        radial-gradient(var(--particle-color) 0.5px, transparent 0.5px);
+    background-size: 50px 50px, 30px 30px;
+    background-position: 0 0, 20px 20px;
+    animation: particles-float 20s linear infinite;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    pointer-events: none;
+    background: linear-gradient(transparent, var(--particle-color) 50%, transparent);
+    animation: particles-rise 15s linear infinite;
+    z-index: -1;
+    opacity: 0.4;
+}
+
+@keyframes particles-float {
+    0% { 
+        transform: translateY(0px) rotate(0deg);
+        background-position: 0 0, 20px 20px;
+    }
+    100% { 
+        transform: translateY(-100px) rotate(360deg);
+        background-position: 100px 100px, 120px 120px;
+    }
+}
+
+@keyframes particles-rise {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-100vh); }
 }
 
 .container {
@@ -252,3 +306,136 @@ button:hover {
         padding: 8px;
     }
 }
+
+/* Weather Dynamic Live Wallpaper Backgrounds */
+body {
+    transition: background 1.5s ease-in-out, --particle-color 1.5s ease-in-out;
+}
+
+body.default {
+    --bg-gradient: linear-gradient(135deg, #00b4db, #0083b0);
+    --particle-color: rgba(255, 255, 255, 0.3);
+}
+
+body.clear-day {
+    --bg-gradient: linear-gradient(135deg, #87CEEB 0%, #98D8C8 50%, #F0F8FF 100%);
+    --particle-color: rgba(255, 193, 7, 0.5);
+}
+body.clear-day::before {
+    background-size: 40px 40px, 20px 20px;
+    animation-duration: 12s, 8s;
+}
+
+body.clear-night {
+    --bg-gradient: linear-gradient(135deg, #0f0f23 0%, #1a1a3d 50%, #2d1b69 100%);
+    --particle-color: rgba(255, 255, 255, 0.8);
+}
+body.clear-night::before {
+    opacity: 0.9;
+    animation: stars-twinkle 6s ease-in-out infinite;
+}
+@keyframes stars-twinkle {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+body.cloudy {
+    --bg-gradient: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 50%, #bdc3c7 100%);
+    --particle-color: rgba(169, 169, 169, 0.5);
+}
+body.cloudy::before {
+    animation-duration: 40s linear infinite;
+    background-size: 100px 100px, 60px 60px;
+}
+
+body.rain {
+    --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #1a252f 100%);
+    --particle-color: rgba(52, 152, 219, 0.7);
+}
+body.rain::before {
+    animation: rain-float 20s linear infinite;
+}
+body.rain::after {
+    animation: rain-fall 0.4s linear infinite;
+    height: 200vh;
+}
+@keyframes rain-float {
+    0% { transform: translateY(0) skewX(-10deg); }
+    100% { transform: translateY(-50px) skewX(10deg); }
+}
+@keyframes rain-fall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+}
+
+body.thunderstorm {
+    --bg-gradient: linear-gradient(135deg, #4B0082 0%, #8B008B 50%, #2F4F4F 100%);
+    --particle-color: rgba(255, 255, 255, 0.4);
+}
+body.thunderstorm {
+    position: relative;
+}
+body.thunderstorm::before {
+    animation: thunderstorm-particles 3s linear infinite;
+}
+body.thunderstorm::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.8) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.6) 0%, transparent 50%);
+    opacity: 0;
+    animation: lightning 5s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+@keyframes lightning {
+    0%, 90%, 100% { opacity: 0; }
+    91% { opacity: 1; }
+    92%, 94%, 96% { opacity: 0; }
+    97% { opacity: 1; }
+}
+@keyframes thunderstorm-particles {
+    0% { opacity: 0.6; }
+    50% { opacity: 0.3; }
+    100% { opacity: 0.6; }
+}
+
+body.snow {
+    --bg-gradient: linear-gradient(135deg, #E6F3FF 0%, #B8E6FC 50%, #A3D8F4 100%);
+    --particle-color: rgba(255, 255, 255, 0.95);
+}
+body.snow::before {
+    background-image: 
+        radial-gradient(var(--particle-color) 1.5px, transparent 1.5px),
+        radial-gradient(var(--particle-color) 0.8px, transparent 0.8px);
+    background-size: 30px 30px, 15px 15px;
+    animation: snow-fall 15s linear infinite;
+}
+@keyframes snow-fall {
+    to { 
+        background-position: 0 100vh, 15px 100vh;
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+body.fog {
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e9f0 50%, #d3d9e2 100%);
+    --particle-color: rgba(240, 240, 240, 0.4);
+}
+body.fog::before {
+    animation: fog-drift 60s reverse infinite linear;
+    opacity: 0.3;
+    background-size: 300px 300px, 150px 150px;
+}
+@keyframes fog-drift {
+    0% { transform: translateX(-50%) scaleX(1.05); }
+    100% { transform: translateX(50%) scaleX(0.95); }
+}
+
+/* Ensure weather classes override theme */
+[data-theme="dark"] body.clear-day, [data-theme="dark"] body.cloudy { /* darken if needed */ }
+
