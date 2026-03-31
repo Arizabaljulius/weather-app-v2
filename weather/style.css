@@ -202,7 +202,7 @@ button:hover {
 
 .forecast-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 10px;
 }
 
@@ -230,4 +230,25 @@ button:hover {
 .forecast-temp {
     font-weight: bold;
     font-size: 1.1rem;
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+        width: 95%;
+    }
+    .temp {
+        font-size: 3rem;
+    }
+    #current-temp-container img {
+        width: 60px;
+    }
+    .forecast-grid {
+        grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+        gap: 8px;
+    }
+    .forecast-item {
+        padding: 8px;
+    }
 }
