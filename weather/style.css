@@ -318,25 +318,71 @@ body.default {
 }
 
 body.clear-day {
-    --bg-gradient: linear-gradient(135deg, #87CEEB 0%, #98D8C8 50%, #F0F8FF 100%);
-    --particle-color: rgba(255, 193, 7, 0.5);
+    --bg-gradient: linear-gradient(135deg, #87CEEB 0%, #98D8C8 30%, #FFD700 70%, #FFA500 100%);
+    --particle-color: rgba(255, 215, 0, 0.6);
 }
 body.clear-day::before {
-    background-size: 40px 40px, 20px 20px;
-    animation-duration: 12s, 8s;
+    background-image: 
+        conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255, 255, 255, 0.8) 1deg, transparent 2deg),
+        radial-gradient(var(--particle-color) 1px, transparent 1px),
+        radial-gradient(rgba(255, 255, 0, 0.4) 0.5px, transparent 0.5px),
+        radial-gradient(rgba(255, 165, 0, 0.3) 2px, transparent 2px);
+    background-size: 200px 200px, 40px 40px, 25px 25px, 80px 80px;
+    background-position: center, 0 0, 20px 20px, center;
+    animation: sun-rays 15s linear infinite, particles-float 10s linear infinite;
+}
+@keyframes sun-rays {
+    0% { 
+        transform: rotate(0deg) scale(1);
+        filter: brightness(1);
+    }
+    50% { 
+        transform: rotate(180deg) scale(1.05);
+        filter: brightness(1.3);
+    }
+    100% { 
+        transform: rotate(360deg) scale(1);
+        filter: brightness(1);
+    }
 }
 
 body.clear-night {
     --bg-gradient: linear-gradient(135deg, #0f0f23 0%, #1a1a3d 50%, #2d1b69 100%);
-    --particle-color: rgba(255, 255, 255, 0.8);
+    --particle-color: rgba(255, 255, 255, 0.9);
 }
 body.clear-night::before {
-    opacity: 0.9;
-    animation: stars-twinkle 6s ease-in-out infinite;
+    opacity: 0.95;
+    background-image: 
+        /* Shooting stars */
+        linear-gradient(90deg, transparent 85%, var(--particle-color) 90%, transparent 95%),
+        /* Star clusters */
+        radial-gradient(var(--particle-color) 1.5px, transparent 1.5px),
+        radial-gradient(var(--particle-color) 0.8px, transparent 0.8px),
+        /* Constellation lines */
+        linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    background-size: 300px 2px, 60px 60px, 30px 30px, 100px 100px;
+    background-position: 100% 20%, 0 0, 20px 20px, 10% 70%;
+    animation: shooting-stars 20s linear infinite, stars-twinkle 4s ease-in-out infinite;
+}
+@keyframes shooting-stars {
+    0% {
+        transform: translateX(-100vw) translateY(20vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100vw) translateY(80vh) rotate(-45deg);
+        opacity: 0;
+    }
 }
 @keyframes stars-twinkle {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
 }
 
 body.cloudy {
