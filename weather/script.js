@@ -11,6 +11,7 @@ let refreshInterval;
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
     if (city) {
+        cityInput.blur(); // Dismisses mobile keyboard to show results
         getWeatherData(city);
     }
 });
@@ -97,12 +98,11 @@ function displayLocationResults(results) {
 }
 
 function displayWeather(data, placeName, province, country, lat, lon) {
-    // Fixed: Now correctly shows "Municipality of Barangay" (e.g., Bantay of Vigan)
-    // when the weather station name differs from the searched location.
+
     let displayName = placeName;
     const stationName = data.name;
     if (stationName.toLowerCase() !== placeName.toLowerCase()) {
-        displayName = `${stationName} of ${placeName}`;
+        displayName = `${placeName}`;
     }
 
     const locationDisplay = [displayName, province, country].filter(Boolean).join(', ');
