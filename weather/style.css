@@ -12,7 +12,6 @@
 }
 
 
-
 [data-theme="dark"] {
     --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     --container-bg: rgba(0, 0, 0, 0.4);
@@ -225,8 +224,12 @@ button:hover {
 }
 
 #current-temp-container img {
-    width: 80px;
+    max-width: 90px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
     filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+    display: block;
 }
 
 .local-time {
@@ -273,7 +276,12 @@ button:hover {
 }
 
 .forecast-item img {
-    width: 50px;
+    max-width: 60px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 5px;
 }
 
 .forecast-date {
@@ -328,7 +336,6 @@ body.default {
 body.clear-day {
     --bg-gradient: linear-gradient(135deg, #87CEEB 0%, #98D8C8 30%, #FFD700 70%, #FFA500 100%);
     --particle-color: rgba(255, 215, 0, 0.6);
-}
 body.clear-day::before {
     background-image: 
         conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255, 255, 255, 0.8) 1deg, transparent 2deg),
@@ -337,7 +344,7 @@ body.clear-day::before {
         radial-gradient(rgba(255, 165, 0, 0.3) 2px, transparent 2px);
     background-size: 200px 200px, 40px 40px, 25px 25px, 80px 80px;
     background-position: center, 0 0, 20px 20px, center;
-    animation: sun-rays 15s linear infinite, particles-float 10s linear infinite;
+        animation: sun-rays 15s linear infinite, particles-float 10s linear infinite;
 }
 @keyframes sun-rays {
     0% { 
@@ -352,6 +359,7 @@ body.clear-day::before {
         transform: rotate(360deg) scale(1);
         filter: brightness(1);
     }
+}
 }
 
 body.clear-night {
@@ -492,4 +500,3 @@ body.fog::before {
 
 /* Ensure weather classes override theme */
 [data-theme="dark"] body.clear-day, [data-theme="dark"] body.cloudy { /* darken if needed */ }
-
