@@ -115,7 +115,9 @@ function displayWeather(data, placeName, province, country, lat, lon) {
         <div class="temp">${Math.round(data.main.temp)}°C</div>
         <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="icon">
     `;
-    document.getElementById('weather-description').innerText = data.weather[0].description.toUpperCase();
+    const weatherData = data.weather[0];
+    document.body.className = getWeatherClass(weatherData);
+    document.getElementById('weather-description').innerText = weatherData.description.toUpperCase();
     document.getElementById('last-updated').innerText = `Last updated: ${new Date().toLocaleTimeString()}`;
 
 
@@ -141,6 +143,24 @@ function startLiveClock(timezoneOffset) {
 
     updateClock();
     clockInterval = setInterval(updateClock, 1000);
+}
+
+function getWeatherClass(weather) {
+    const main = weather.main.toLowerCase();
+    const icon = weather.icon;
+
+    // Day/Night
+    const isDay = icon.endsWith('d');
+    const isNight = icon.endsWith('n');
+
+    // Main conditions
+    if (main === 'clear') return isDay ? 'clear-day' : 'clear-night';
+    if (main === 'clouds') return 'cloudy';
+    if (main.includes('rain') || icon.startsWith('09') || icon.startsWith('10')) return 'rain';
+    if (main === 'thunderstorm' || icon.startsWith('11')) return 'thunderstorm';
+    if (main.includes('snow') || icon.startsWith('13')) return 'snow';
+    if (main === 'mist' || main === 'fog' || main === 'haze' || icon.startsWith('50')) return 'fog';
+    return 'default';
 }
 
 function setupAutoRefresh(lat, lon, name, state, country) {
