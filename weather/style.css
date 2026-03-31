@@ -34,6 +34,7 @@ body {
     background: var(--bg-gradient);
     background-attachment: fixed;
     min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -288,9 +289,16 @@ button:hover {
 
 /* Mobile Responsiveness Improvements */
 @media (max-width: 480px) {
+    html, body {
+        height: 100vh;
+        overflow: hidden;
+    }
     .container {
         padding: 1rem;
         width: 95%;
+        max-height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     .temp {
         font-size: 3rem;
