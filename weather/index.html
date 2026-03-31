@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <h1>Weather Forecast</h1>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="city-input" placeholder="City, Province/State, Country...">
+                <button id="search-btn">Search</button>
+            </div>
+            <div id="results-container" class="results-container hidden"></div>
+        </header>
+
+        <div id="loader" class="loader hidden"></div>
+
+        <main id="weather-container" class="hidden">
+            <section class="current-weather">
+                <h2 id="city-name"></h2>
+                <div id="local-time" class="local-time"></div>
+                <div id="coordinates" class="coordinates"></div>
+                <div id="current-temp-container"></div>
+                <p id="weather-description"></p>
+                <div id="last-updated" class="last-updated"></div>
+            </section>
+
+            <section id="forecast-container" class="forecast-grid"></section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
